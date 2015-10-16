@@ -1,3 +1,8 @@
+chrome.browserAction.onClicked.addListener(function(activeTab){
+  var newURL = "popup.html";
+  chrome.tabs.create({ url: newURL });
+});
+
 var messages = [
 "If it makes you happy, do it. If it doesn\'t, then don\'t.",
 "Be fearless in the pursuit of what sets your soul on fire.",
@@ -45,13 +50,32 @@ var messages = [
 "You have to be odd to be number one. - Dr. Seuss",
 "Work like most people won\'t so you can live like most people can\'t."]
 
+// function reloadPage() {
+
+
+ 
 function displayMessage () {
   var quote = document.createElement("div");
+  quote.setAttribute("id", "bg")
   quote.innerHTML = '<h1>"' + messages[Math.ceil(Math.random()*10)] + '"</h1>';
   document.body.appendChild(quote);
+
+  var color = '#';
+  var pallette = ["32cba3", "1abc9c", "2ecc71", "3498db", "9b59b6", "34495e", "f1c40f", "e67e22", "e74c3c", "bdc3c7", "7f8c8d"];
+  color += pallette[Math.floor(Math.random() * pallette.length)];
+  document.body.style.background = color;
 }
 displayMessage();
 
-function startClock () {
+function moreQuotes () {
+	var more = document.createElement("button");
+	more.setAttribute("id", "more");
+	more.setAttribute("onclick", "refresh()");    
+	more.innerHTML = 'More Randos Quotas';
+	document.body.appendChild(more);
+}
+moreQuotes();
 
+function refresh () {
+  document.getElementById("bg").innerHTML = '<h1>"' + messages[Math.ceil(Math.random()*10)] + '"</h1>';
 }
